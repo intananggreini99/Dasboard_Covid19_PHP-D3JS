@@ -6,16 +6,34 @@
     <title>Dashboard Covid-19 D3JS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Tailwind CDN (OK untuk development) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
-        /* hapus scrollbar horizontal jika ada */
+        
         body, html {
             overflow-x: hidden;
+        }
+
+        /* background default container Leaflet */
+        .leaflet-container {
+            background: #020617; 
+        }
+
+        .leaflet-tooltip {
+            background: rgba(20, 20, 20, 0.95);
+            color: #fff;
+            border-radius: 6px;
+            border: 1px solid #999;
+            padding: 6px 10px;
+        }
+
+        .case-label {
+            text-shadow: 0 0 4px #000, 0 0 4px #000;
         }
     </style>
 </head>
@@ -54,33 +72,33 @@
 
     <!-- KONTEN UTAMA -->
     <main class="bg-black min-h-screen ml-[25px] p-3 md:p-4 overflow-auto md:pl-64">
-        <header class="mb-4">
-            <h2 class="text-red-600 text-xl md:text-2xl font-semibold hover:text-white"><a href="index.php">Distribution Covid19 Cases</a></h2>
+        <header class="text-center py-5 mb-3">
+            <h2 class="text-red-600 text-xl md:text-2xl text-xl font-bold hover:text-white"><a href="index.php">Distribution Covid19 Cases</a></h2>
             <p class="text-xs text-slate-400">In Indonesia Country</p>
         </header>
 
         <div class="min-w-full ">
-            <!-- MAP (Distribution Cases) – kiri atas besar -->
+
+            <!-- MAP (Distribution Cases)-->
             <section id="map-section"
-                    class="grid justify-items-center bg-black border border-slate-700 rounded-lg p-3 md:p-4 
-                            xl:w-full md:w-full xl:w-full">
+                    class="w-full bg-black border border-slate-700 rounded-lg p-3 md:p-4 flex flex-col
+                            xl:col-span-2 xl:row-span-2 min-h-[260px] md:min-h-[360px] xl:min-h-[480px]">
                 <div class="mb-2">
                     <h3 class="text-base md:text-lg font-semibold text-center md:text-left">
                         Map Distribution Cases
                     </h3>
                 </div>
-                <!-- PENTING: id harus 'map-chart'-->
-                <div id="map-chart" class="flex-1 w-full h-full"></div>
+                <div id="leaflet-map" class="flex-1 w-full h-full"></div>
             </section>
 
-        </div><!-- end grid -->
+        </div>
     </main>
 </div>
 
 <!-- D3 -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
-<!-- Helper: renderResponsive (dipakai semua grafik) -->
+<!-- Helper renderResponsive -->
 <script>
 if (!window.renderResponsive) {
     window.renderResponsive = function (selector, drawFn) {
@@ -111,9 +129,14 @@ function scrollToSection(id) {
     }
 }
 </script>
+<script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+></script>
 
-<!-- Script JavaScript Visualisasi dengan D3JS -->
-<script src="visualize_js/d3_map.js"></script>
+<!-- File JS visualisasi (pastikan path relatif benar) -->
+<script src="visualize_js/leaflet_map.js"></script>
 
 </body>
 </html>
